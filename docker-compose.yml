@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.6
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: moviewise
+      MYSQL_USER: my_root
+      MYSQL_PASSWORD: qwerty1234
+      MYSQL_ROOT_PASSWORD: Qwerty1234
+    volumes:
+      - ./resources:/docker-entrypoint-initdb.d
+      - fpg_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  web:
+    image: sohmc/php-mysqli
+    container_name: php
+    ports:
+      - "80:80"
+    volumes:
+      - ./backend:/var/www/html
+    depends_on: 
+    - mysql
+
+
+volumes:
+  fpg_data: {}
