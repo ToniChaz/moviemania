@@ -20,7 +20,7 @@ Moviemania is a web application built using Angular for the frontend, PHP for th
 
 1. Clone this repository to your local machine and Navigate to the project directory.
 ```sh
-git clone https://github.com/toni_chaz/moviemania.git
+git clone https://github.com/ToniChaz/moviemania.git
 cd moviemania
 ```
 
