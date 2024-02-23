@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { User, users } from '../users';
+import { User } from '../users';
 
 @Component({
   selector: 'app-users-details',
@@ -19,7 +19,8 @@ export class UserDetailsComponent implements OnInit {
     const routeParams = this.route.snapshot.paramMap;
     const userIdFromRoute = Number(routeParams.get('userId'));
   
-    // Find the user that correspond with the id provided in route.
-    this.user = users.find(user => user.id === userIdFromRoute);
+    // TODO Find the user that correspond with the id provided in route.
+    // this.user = users.find(user => user.id === userIdFromRoute);
+    // Call again the service and fect the details
   }
 }

@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from '../user.service';
 
-import { users } from '../users';
+import { User } from '../users';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
-export class UserListComponent {
-  users = [...users];
+export class UserListComponent implements OnInit {
+  users!: Observable<User[]>;
+
+  constructor(private userService: UserService) { }
+
 
   share() {
     window.alert('Hi user');
@@ -16,5 +21,9 @@ export class UserListComponent {
 
   onNotify() {
     window.alert('You will be notified from parent component');
+  }
+
+  ngOnInit(): void {
+    this.users =  this.userService.getUsers();
   }
 }
