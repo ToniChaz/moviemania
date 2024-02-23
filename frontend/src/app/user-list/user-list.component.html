@@ -1,0 +1,26 @@
+<h2>Users</h2>
+
+<div *ngFor="let user of users">
+
+  <h3>
+    <a
+      [title]="user.username + ' details'"
+      [routerLink]="['/users', user.id]">
+      {{ user.username }}
+    </a>
+  </h3>
+
+  <p *ngIf="user.isAdmin">
+    I am an Admin!!!
+  </p>
+
+  <button type="button" (click)="share()">
+    Share
+  </button>
+  
+  <app-user-alerts 
+  [user]="user" 
+  (notify)="onNotify()">
+  </app-user-alerts>
+
+</div>

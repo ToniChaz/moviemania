@@ -1,0 +1,39 @@
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  isAdmin: boolean;
+}
+
+export const users = [
+  {
+    id: 1,
+    username: 'userOne',
+    email: 'userone@example.com',
+    isAdmin: false
+  },
+  {
+    id: 2,
+    username: 'userTwo',
+    email: 'usertwo@example.com',
+    isAdmin: false
+  },
+  {
+    id: 3,
+    username: 'adminUser',
+    email: 'adminuser@example.com',
+    isAdmin: true
+  },
+  {
+    id: 4,
+    username: 'userFour',
+    email: 'userfour@example.com',
+    isAdmin: false
+  },
+  {
+    id: 5,
+    username: 'userFive',
+    email: 'userfive@example.com',
+    isAdmin: false
+  }
+];
