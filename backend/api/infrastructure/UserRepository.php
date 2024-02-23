@@ -1,8 +1,8 @@
 <?php
 
-require_once PROJECT_ROOT_PATH . "/domain/Database.php";
+require_once "Database.php";
 
-class User extends Database
+class UserRepository extends Database
 {
     public function getUsers($limit)
     {

@@ -1,17 +1,16 @@
 <?php
-class UserController extends BaseController
-{
+class UserController extends BaseController {
 /** 
-* "/user/list" Endpoint - Get list of users 
+* "/users" Endpoint - Get list of all users 
 */
-    public function listAction()
+    public function usersAction()
     {
         $strErrorDesc = '';
         $requestMethod = $_SERVER["REQUEST_METHOD"];
         $arrQueryStringParams = $this->getQueryStringParams();
         if (strtoupper($requestMethod) == 'GET') {
             try {
-                $user = new User();
+                $user = new UserRepository();
                 $intLimit = 10;
                 if (isset($arrQueryStringParams['limit']) && $arrQueryStringParams['limit']) {
                     $intLimit = $arrQueryStringParams['limit'];
@@ -19,6 +18,7 @@ class UserController extends BaseController
                 $arrUsers = $user->getUsers($intLimit);
                 $responseData = json_encode($arrUsers);
             } catch (Error $e) {
+                var_dump($e);
                 $strErrorDesc = $e->getMessage().'Something went wrong! Please contact support.';
                 $strErrorHeader = 'HTTP/1.1 500 Internal Server Error';
             }

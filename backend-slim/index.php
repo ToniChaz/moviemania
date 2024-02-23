@@ -1,19 +1,13 @@
 <?php
-use \Psr\Http\Message\ServerRequestInterface as Request;
-use \Psr\Http\Message\ResponseInterface as Response;
+// route
+$requestUri = $_SERVER['REQUEST_URI'];
 
-require 'vendor/autoload.php';
-require 'src/inc/config.php';
-
-$app = new \Slim\App(['settings' => $config]);
-
-$app->get('/hello/{name}', function (Request $request, Response $response, array $args) {
-    $name = $args['name'];
-    $response->getBody()->write("Hello, $name");
-
-    return $response;
-});
-
-$app->run();
-
+// Verificar si la URL comienza con '/api'
+if (strpos($requestUri, '/api') === 0) {
+    // La URL comienza con '/api', redirigir a la carpeta '/api'
+    header("Location: /api$requestUri");
+} else {
+    // La URL no comienza con '/api', redirigir a la carpeta 'public'
+    header("Location: /public$requestUri");
+}
 ?>

@@ -1,20 +1,13 @@
 <?php
-require __DIR__ . "/inc/bootstrap.php";
+// route
+$requestUri = $_SERVER['REQUEST_URI'];
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = explode( '/', $uri );
-
-if ((isset($uri[1]) && $uri[1] != 'user') || !isset($uri[2])) {
-    var_dump($uri[1]);
-    var_dump($uri[2]);
-    header("HTTP/1.1 404 Not Found");
-    exit();
+// Verificar si la URL comienza con '/api'
+if (strpos($requestUri, '/api') === 0) {
+    // La URL comienza con '/api', redirigir a la carpeta '/api'
+    header("Location: /api$requestUri");
+} else {
+    // La URL no comienza con '/api', redirigir a la carpeta 'public'
+    header("Location: /public$requestUri");
 }
-
-require PROJECT_ROOT_PATH . "/controller/UserController.php";
-
-$objFeedController = new UserController();
-$strMethodName = $uri[2] . 'Action';
-$objFeedController->{$strMethodName}();
-
 ?>

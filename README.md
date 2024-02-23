@@ -1,20 +1,21 @@
 # Moviemania
 
-Moviemania is a web application built using Angular for the frontend, PHP for the backend, and MySQL as the database. It provides users with a platform to discover, rate, and review movies. This README.md file serves as a guide to set up and use the Moviemania application.
+Moviemania is a web application built using Angular for the frontend, PHP for the backend, and MySQL as the database. 
+It provides users with a platform to discover, rate, and review movies. 
+This README.md file serves as a guide to set up and use the Moviemania application.
 
 ## Installation
 
 ### Prerequisites
-- Node.js and npm installed on your machine.
+- NodeJS and npm installed on your machine.
 - PHP installed on your server.
 - MySQL database server.
 
 ### Dependencies
 - angular-cli
-- php8
+- php8.1-cli 
+- php8.1-mysql
 - composer
-- php-mysql
-
 
 ### Steps
 
@@ -47,7 +48,7 @@ ng build
     
 6. Start your PHP server.
 ```sh
-php -S localhost:8000
+php -S localhost:8080
 ```
 
 7. Access the Moviemania application through your web browser.
