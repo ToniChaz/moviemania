@@ -12,6 +12,11 @@ class UserController
     try {
       $user = new UserRepository();
       $response = $user->getAllUsers();
+
+      foreach ($response as &$user) {
+        unset($user['password']);
+      }
+
       return json_encode($response);
     } catch (Exception $error) {
       throw new Exception($error->getMessage());
@@ -27,9 +32,11 @@ class UserController
       $user = new UserRepository();
       $response = $user->getById($userId);
 
-      if (count($response) == 0){
+      if (empty($response)) {
         throw new Exception("NOT_FOUND");
       }
+
+      unset($response[0]['password']);
 
       return json_encode($response);
     } catch (Exception $error) {
