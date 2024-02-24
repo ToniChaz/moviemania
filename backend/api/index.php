@@ -1,18 +1,26 @@
 <?php
-require __DIR__ . "/includes/bootstrap.php";
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
 
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$uri = explode( '/', $uri );
+require 'vendor/autoload.php';
+require 'src/includes/config.php';
+require 'src/application/UserController.php';
 
-if ((isset($uri[2]) && $uri[2] != 'users')) {
-    header("HTTP/1.1 404 Not Found");
-    exit();
-}
+$app = new \Slim\App(['settings' => $config]);
 
-require PROJECT_ROOT_PATH . "/application/UserController.php";
+$app->get('/users', function (Request $request, Response $response, array $args) {
+    $userController = new UserController();
+    $response->getBody()->write($userController->getUsers());
+    return $response;
+});
 
-$objFeedController = new UserController();
-$strMethodName = $uri[2] . 'Action';
-$objFeedController->{$strMethodName}();
+$app->get('/users/{userId}', function (Request $request, Response $response, array $args) {
+    $userId = $args['userId'];
+    $response->getBody()->write("Hello user, $userId");
+
+    return $response;
+});
+
+$app->run();
 
 ?>
