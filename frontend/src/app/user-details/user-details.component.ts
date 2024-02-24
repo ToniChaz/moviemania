@@ -18,9 +18,11 @@ export class UserDetailsComponent implements OnInit {
     // First get the user id from the current route.
     const routeParams = this.route.snapshot.paramMap;
     const userIdFromRoute = Number(routeParams.get('userId'));
+    this.user = history.state;
   
     // TODO Find the user that correspond with the id provided in route.
     // this.user = users.find(user => user.id === userIdFromRoute);
     // Call again the service and fect the details
+
   }
 }

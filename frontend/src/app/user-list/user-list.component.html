@@ -5,7 +5,8 @@
   <h3>
     <a
       [title]="user.username + ' details'"
-      [routerLink]="['/users', user.id]">
+      [routerLink]="['/users', user.id]"
+      [state]="user">
       {{ user.username }}
     </a>
   </h3>
