@@ -13,10 +13,8 @@ class UserController
       $user = new UserRepository();
       $response = $user->getAllUsers();
       return json_encode($response);
-    } catch (Error $error) {
-      return json_encode(
-        array('error' => $error->getMessage() . ' Something went wrong! Please contact support.')
-      );
+    } catch (Exception $error) {
+      throw new Exception($error->getMessage());
     }
   }
 
@@ -28,11 +26,14 @@ class UserController
     try {
       $user = new UserRepository();
       $response = $user->getById($userId);
+
+      if (count($response) == 0){
+        throw new Exception("NOT_FOUND");
+      }
+
       return json_encode($response);
-    } catch (Error $error) {
-      return json_encode(
-        array('error' => $error->getMessage() . ' Something went wrong! Please contact support.')
-      );
+    } catch (Exception $error) {
+      throw new Exception($error->getMessage());
     }
   }
 }

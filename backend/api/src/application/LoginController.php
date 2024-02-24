@@ -14,19 +14,15 @@ class LoginController
       $response = $login->login($login_data['username']);
 
       if ($response[0]['password'] != $login_data['password']) {
-        return json_encode(
-          array('error' => 'User or password incorrect!')
-        );
+        throw new Exception('WRONG_PASSWORD');
       }
 
       if ($response[0]['password'] == $login_data['password']) {
         return json_encode($response);
       }
       
-    } catch (Error $error) {
-      return json_encode(
-        array('error' => $error->getMessage() . ' Something went wrong! Please contact support.')
-      );
+    } catch (Exception $error) {
+      throw new Exception($error->getMessage());
     }
   }
 }
