@@ -36,6 +36,7 @@ class Database
             if ($stmt === false) {
                 throw new Exception("Unable to do prepared statement: " . $query);
             }
+
             $stmt->execute();
             return $stmt;
         } catch (Exception $e) {

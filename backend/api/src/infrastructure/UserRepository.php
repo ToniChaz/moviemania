@@ -8,4 +8,9 @@ class UserRepository extends Database
     {
         return $this->select("SELECT * FROM users");
     }
+
+    public function getById($id)
+    {
+        return $this->select("SELECT * FROM users WHERE id='$id'");
+    }
 }
