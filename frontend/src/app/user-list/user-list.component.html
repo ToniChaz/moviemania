@@ -14,13 +14,10 @@
     I am an Admin!!!
   </p>
 
-  <button type="button" (click)="share()">
+  <button type="button" (click)="share(user)">
     Share
   </button>
   
-  <app-user-alerts 
-  [user]="user" 
-  (notify)="onNotify()">
-  </app-user-alerts>
+  <app-user-alerts [user]="user" (notify)="onNotify()"></app-user-alerts>
 
 </div>

@@ -15,8 +15,8 @@ export class UserListComponent implements OnInit {
   constructor(private userService: UserService) { }
 
 
-  share() {
-    window.alert('Hi user');
+  share(user: User) {
+    window.alert('Hi user ' + user.username);
   }
 
   onNotify() {
