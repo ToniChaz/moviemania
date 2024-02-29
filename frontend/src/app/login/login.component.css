@@ -1,0 +1,81 @@
+body{
+  background: linear-gradient(to bottom, #ffffff, #f0f0f0);  
+  height: 100vh;
+}
+.login-container {
+  max-width: 400px;
+  margin-left: 40%;
+  padding: 20px;
+  /*border: 1px solid #ccc;*/
+  border-radius: 5px;
+  /*box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  Agrega sombra */
+  font-family: sans-serif;
+
+}
+  
+.login-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+  
+.login-form {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Agrega sombra */
+}
+  
+.login-label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.login-input {
+  width: 95%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.login-register-container{
+  display: flex;
+  justify-content: center;
+}
+.login-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 40%;
+  
+  
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.login-register {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login-register a {
+  color: #007bff;
+  text-decoration: none;
+}
+  
+.login-register a:hover {
+  text-decoration: underline;
+}
+.login-input::placeholder {
+  color: red;
+}
+.login-message{
+  margin-top: 20px;
+  color: red;
+
+}
