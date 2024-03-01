@@ -57,7 +57,21 @@ http://localhost:8000/public
 
 or consume the API rest on
 
-http://localhost:8000/{some-resource}
+http://localhost:8000/api/{some-resource}
+
+
+## API
+
+>  GET all users:
+>  ```sh
+>  curl --location 'http://localhost:8080/api/users'
+>  ```
+
+## Docker compose
+
+>  ```sh
+>  docker-compose up
+>  ```
 
 ## Usage
 

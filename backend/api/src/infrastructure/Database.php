@@ -5,6 +5,7 @@ require_once 'src/includes/db.php';
 class Database
 {
     protected $connection = null;
+
     public function __construct()
     {
         try {
@@ -17,6 +18,7 @@ class Database
             throw new Exception($e->getMessage());
         }
     }
+
     public function select($query = "")
     {
         try {
@@ -29,6 +31,32 @@ class Database
         }
         return false;
     }
+
+    public function insert($query = "")
+    {
+        try {
+            $stmt = $this->executeStatement($query);
+            $stmt->close();
+            return $this->connection->insert_id;;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+        return false;
+    }
+
+    public function executeQuery($query = "")
+    {
+        try {
+            $stmt = $this->executeStatement($query);
+            $numRowsAffected = $stmt->affected_rows; // Obtiene el número de filas afectadas
+            $stmt->close();
+            return $numRowsAffected > 0;
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+        return false;
+    }
+
     private function executeStatement($query = "")
     {
         try {

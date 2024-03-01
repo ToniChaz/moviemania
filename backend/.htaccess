@@ -1,14 +1,19 @@
 <IfModule mod_rewrite.c>
+    # Habilitar reescritura de URLs
     RewriteEngine On
 
-    # Redirigir todas las solicitudes a la carpeta 'public'
-    RewriteCond %{REQUEST_URI} !^/public/
-    RewriteRule ^(.*)$ /public/$1 [L]
-    
-    # Ocultar el path '/public' en el navegador
-    RewriteCond %{THE_REQUEST} \s/public/([^\s?]+) [NC]
-    RewriteRule ^ %1 [L,R=301]
-    
-    # Redirigir todas las solicitudes '/api' a la carpeta 'api'
-    RewriteRule ^api/(.*)$ /api/$1 [L]    
+    # Ruta base para las solicitudes
+    RewriteBase /
+
+    # Si la solicitud es para un archivo o directorio existente, no hacer nada
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Para las solicitudes que no son para archivos ni directorios existentes,
+    # redirigir al backend en la carpeta 'api'
+    RewriteRule ^api/(.*)$ api/index.php [L]
+
+    # Para las solicitudes restantes, redirigir al directorio 'public' para servir archivos estáticos
+    RewriteRule ^(.*)$ public/$1 [L]
 </IfModule>

@@ -14,15 +14,22 @@ function setContainer($container)
 
 function errorHandler($error)
 {
-  if ($error == 'NOT_FOUND') {
+  $message = $error->getMessage();
+  if ($message == 'NOT_FOUND') {
     $response = new \Slim\Http\Response(404);
-  } else if ($error == 'WRONG_PASSWORD') {
+  } else if ($message == 'WRONG_PASSWORD') {
     $response = new \Slim\Http\Response(401);
+  } else if ($message == 'USER_ERROR') {
+    $response = new \Slim\Http\Response(409);
   } else {
     $response = new \Slim\Http\Response(500);
   }
 
-  $response->write($response->getReasonPhrase());
+  $response->write(json_encode(array(
+    "error" => $response->getStatusCode(),
+    "reason" => $response->getReasonPhrase(),
+    "message" => $message
+  )));
 
   return $response;
 }

@@ -14,17 +14,28 @@ services:
       - fpg_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    networks:
+      - pfg-moviewise
 
-  web:
-    image: sohmc/php-mysqli
+  php:
+    build: .
     container_name: php
     ports:
-      - "80:80"
+      - "8080:80"
     volumes:
       - ./backend:/var/www/html
+      - ./backend/php.ini:/usr/local/etc/php/php.ini
     depends_on: 
-    - mysql
+      - mysql
+    links:
+      - mysql
+    networks:
+      - pfg-moviewise
 
 
 volumes:
   fpg_data: {}
+
+networks:
+  pfg-moviewise:
+    driver: bridge
