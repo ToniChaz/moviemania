@@ -8,11 +8,15 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserAlertsComponent } from './user-alerts/user-alerts.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
+import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpClientModule,
+    RegisterComponent,
+    LoginComponent,
     RouterModule.forRoot([
       { path: '', component: UserListComponent },
       { path: 'users/:userId', component: UserDetailsComponent },
