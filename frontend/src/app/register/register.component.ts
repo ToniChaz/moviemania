@@ -39,7 +39,7 @@ export class RegisterComponent {
               //country: this.country
             };
     
-            this.http.post<any>('http://localhost:8080/users', registrationData).subscribe(
+            this.http.post<any>('http://localhost:8080/api/users', registrationData).subscribe(
               response => {
                 console.log('Respuesta del backend:', response);
                 // te manda pa la web

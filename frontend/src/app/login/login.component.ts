@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, isDevMode } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
@@ -30,7 +30,8 @@ export class LoginComponent {
       /*El host es eso: http://localhost:8080 y Ahh la URL es http://localhost:8080/users
       meter esto en algun lado */
       // Enviar datos al backend utilizando HttpClient
-      this.http.post<any>('http://localhost:8080/users', credentials).subscribe(
+
+      this.http.post<any>('http://localhost:8080/api/login', credentials).subscribe(
         response => {
           console.log('Respuesta del backend:', response);
           // Aquí puedes manejar la respuesta del backend

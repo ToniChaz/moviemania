@@ -37,7 +37,7 @@ class Database
         try {
             $stmt = $this->executeStatement($query);
             $stmt->close();
-            return $this->connection->insert_id;;
+            return $this->connection->insert_id;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -48,7 +48,7 @@ class Database
     {
         try {
             $stmt = $this->executeStatement($query);
-            $numRowsAffected = $stmt->affected_rows; // Obtiene el número de filas afectadas
+            $numRowsAffected = $stmt->affected_rows;
             $stmt->close();
             return $numRowsAffected > 0;
         } catch (Exception $e) {

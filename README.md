@@ -32,7 +32,7 @@ npm install
 ng build
 ```
 
-3. Copy the generated `dist` folder to your `public` PHP folder.
+3. Copy the generated `dist/browser` folder to your `public` PHP folder.
 
 4. Execute the `resources/database.sql` file into your MySQL database.
 
@@ -66,6 +66,17 @@ http://localhost:8000/api/{some-resource}
 >  ```sh
 >  curl --location 'http://localhost:8080/api/users'
 >  ```
+
+>  POST users:
+>  ```sh
+>  curl --location --request POST 'http://localhost:8080/api/users' \
+>       --form 'username="username17"' \
+>       --form 'name="User Name 1001"' \
+>       --form 'password="123456"' \
+>       --form 'birthdate="1980-10-10"' \
+>       --form 'email="username1001@gmail.com"'
+>  ```
+
 
 ## Docker compose
 
