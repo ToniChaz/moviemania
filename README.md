@@ -29,10 +29,10 @@ cd moviemania
 ```sh
 cd frontend
 npm install
-ng build
+npm run build
 ```
 
-3. Copy the generated `dist/browser` folder to your `public` PHP folder.
+3. Copy the generated `dist/browser` folder to your `public` PHP folder. THIS STEP YOU CAN IGNORE IS EXECUTING THE POSTBUILD
 
 4. Execute the `resources/database.sql` file into your MySQL database.
 
@@ -62,21 +62,50 @@ http://localhost:8000/api/{some-resource}
 
 ## API
 
->  GET all users:
+>  GET /users
 >  ```sh
->  curl --location 'http://localhost:8080/api/users'
+>  curl --location --request GET 'http://localhost:8080/api/users'
 >  ```
 
->  POST users:
+>  GET /users/{id}
+>  ```sh
+>  curl --location --request GET 'http://localhost:8080/api/users/43'
+>  ```
+
+>  POST /users
 >  ```sh
 >  curl --location --request POST 'http://localhost:8080/api/users' \
->       --form 'username="username17"' \
->       --form 'name="User Name 1001"' \
->       --form 'password="123456"' \
->       --form 'birthdate="1980-10-10"' \
->       --form 'email="username1001@gmail.com"'
+>       --header 'Content-Type: application/x-www-form-urlencoded' \
+>       --data-urlencode 'username="username17"' \
+>       --data-urlencode 'name="User Name 1001"' \
+>       --data-urlencode 'password="123456"' \
+>       --data-urlencode 'birthdate="1980-10-10"' \
+>       --data-urlencode 'email="username1001@gmail.com"'
 >  ```
 
+>  PUT /users
+>  ```sh
+>  curl --location --request PUT 'http://localhost:8080/api/users/1' \
+>       --header 'Content-Type: application/x-www-form-urlencoded' \
+>       --data-urlencode 'username=userchanged' \
+>       --data-urlencode 'name=New Name' \
+>       --data-urlencode 'password=password1' \
+>       --data-urlencode 'birthdate=1981-10-15' \
+>       --data-urlencode 'email=newmail@mail.com'
+>  ```
+
+>  DELETE /users
+>  ```sh
+>  curl --location --request DELETE 'http://localhost:8080/api/users/2'
+>  ```
+
+>  POST /login
+>  ```sh
+>  curl --location --request POST 'http://localhost:8080/api/login' \
+>       --header 'Content-Type: application/x-www-form-urlencoded' \
+>       --data-urlencode 'username="user8"' \
+>       --data-urlencode 'password="password8"'
+>  ```
 
 ## Docker compose
 

@@ -17,7 +17,7 @@ body {
   flex-direction: row;
 }
 
-router-outlet + *  {
+router-outlet+* {
   padding: 0 16px;
 }
 
@@ -31,7 +31,8 @@ h2 {
   font-size: 20px;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: lighter;
 }
 
@@ -70,7 +71,8 @@ label {
 }
 
 /* Button */
-.button, button {
+.button,
+button {
   display: inline-flex;
   align-items: center;
   padding: 8px 16px;
@@ -82,12 +84,14 @@ label {
   border: none;
 }
 
-.button:hover, button:hover {
+.button:hover,
+button:hover {
   opacity: 0.8;
   font-weight: normal;
 }
 
-.button:disabled, button:disabled {
+.button:disabled,
+button:disabled {
   opacity: 0.5;
   cursor: auto;
 }
@@ -118,21 +122,55 @@ app-top-bar {
 }
 
 app-top-bar h1 {
+  float: left;
+  color: white;
+  margin: 16px;
+}
+app-top-bar img {
+  float: left;
   color: white;
   margin: 0;
+  width: 68px;
 }
 
-/* Checkout Cart, Shipping Prices */
+.login-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
 
-.cart-item, .shipping-item {
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
   width: 100%;
-  min-width: 400px;
-  max-width: 450px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 16px 32px;
-  margin-bottom: 8px;
-  border-radius: 2px;
-  background-color: #EEEEEE;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
