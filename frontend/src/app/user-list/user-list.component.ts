@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
+import { UserService } from '../services/user.service';
 
 import { User } from '../users';
 import { Observable } from 'rxjs';
@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class UserListComponent implements OnInit {
   users!: Observable<User[]>;
+  userSelected: User | undefined = undefined;
 
   constructor(private userService: UserService) { }
 
@@ -25,5 +26,13 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.users =  this.userService.getUsers();
+  }
+
+  edit(user: User) {
+    this.userSelected = user;
+  }
+
+  delete(user: User) {
+    
   }
 }

@@ -1,6 +1,24 @@
 <h2>Users</h2>
 
-<div *ngFor="let user of users | async">
+<table>
+  <tr *ngFor="let user of users | async">
+    <td>{{ user.id }}</td>
+    <td>{{ user.username }}</td>
+    <td>{{ user.name }}</td>
+    <td>{{ user.birthdate }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ user.isAdmin }}</td>
+    <td (click)="edit(user)"><i class="material-icons" style="cursor: pointer;">edit</i></td>
+    <td (click)="delete(user)"><i class="material-icons" style="cursor: pointer;">delete</i></td>
+  </tr>
+  <tr *ngIf="userSelected">
+    <td colspan="8">
+      <app-users-details [user]="userSelected"></app-users-details>
+    </td>
+  </tr>
+</table>
+
+<!-- <div *ngFor="let user of users | async">
 
   <h3>
     <a
@@ -20,4 +38,4 @@
   
   <app-user-alerts [user]="user" (notify)="onNotify()"></app-user-alerts>
 
-</div>
+</div> -->

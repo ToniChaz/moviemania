@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -10,6 +9,7 @@ import { UserAlertsComponent } from './user-alerts/user-alerts.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   imports: [
@@ -17,10 +17,14 @@ import { LoginComponent } from './login/login.component';
     HttpClientModule,
     RegisterComponent,
     LoginComponent,
-    RouterModule.forRoot([
-      { path: '', component: UserListComponent },
-      { path: 'users/:userId', component: UserDetailsComponent },
-    ])
+    AppRoutingModule
+    
+    // XXX: han pasado las rutas a app-routing.module.ts
+
+    // RouterModule.forRoot([
+    //   { path: '', component: UserListComponent },
+    //   { path: 'users/:userId', component: UserDetailsComponent },
+    // ])
   ],
   declarations: [
     AppComponent,

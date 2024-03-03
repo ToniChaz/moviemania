@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS moviewise;
 use moviewise;
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(60) NOT NULL DEFAULT '',
   `name` varchar(60) NOT NULL DEFAULT '',
   `password` varchar(60) NOT NULL DEFAULT '',

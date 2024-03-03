@@ -1,6 +1,8 @@
 import { Component, isDevMode } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { User } from '../users';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +19,7 @@ export class LoginComponent {
   datosErroneos: string = '';
 
 
-  constructor(private http: HttpClient) { } // Inyecta HttpClient en el constructor
+  constructor(private http: HttpClient, private router: Router) { } // Inyecta HttpClient en el constructor
 
   login() {
     // Verificar si el nombre de usuario y la contraseña están presentes
@@ -32,13 +34,20 @@ export class LoginComponent {
       // Enviar datos al backend utilizando HttpClient
 
       this.http.post<any>('http://localhost:8080/api/login', credentials).subscribe(
-        response => {
+        (response: User[]) => {
           console.log('Respuesta del backend:', response);
+
+          if (response[0].isAdmin) {
+            this.router.navigate(['/user-list']);
+          }
+          else {
+            this.router.navigate([`/users/${response[0].id}`]);
+          }
           // Aquí puedes manejar la respuesta del backend
           //un if si es true se redirige si es false se muestra this.datosErroneos = 'Credenciales incorrectas'
         },
-        error => {
-          console.error('Error al enviar la solicitud:', error);
+        err => {
+          console.error('Error al enviar la solicitud:', err.error.message);
           // Manejar errores aquí
         }
       );
