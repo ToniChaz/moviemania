@@ -17,6 +17,7 @@ class LoginController
         throw new Exception('WRONG_PASSWORD');
       }
 
+      unset($response[0]['password']);
       return json_encode($response);
       
     } catch (Exception $error) {
