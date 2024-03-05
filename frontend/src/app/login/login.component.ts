@@ -38,7 +38,7 @@ export class LoginComponent {
           console.log('Respuesta del backend:', response);
 
           if (response[0].isAdmin) {
-            this.router.navigate(['/user-list']);
+            this.router.navigate(['/admin']);
           }
           else {
             this.router.navigate([`/users/${response[0].id}`]);

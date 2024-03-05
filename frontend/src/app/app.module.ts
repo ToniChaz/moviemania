@@ -10,6 +10,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   imports: [
@@ -17,8 +18,8 @@ import { AppRoutingModule } from './app-routing.module';
     HttpClientModule,
     RegisterComponent,
     LoginComponent,
-    AppRoutingModule
-    
+    AppRoutingModule,
+    AdminModule
     // XXX: han pasado las rutas a app-routing.module.ts
 
     // RouterModule.forRoot([
