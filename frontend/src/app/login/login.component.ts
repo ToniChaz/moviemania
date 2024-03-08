@@ -2,7 +2,7 @@ import { Component, isDevMode } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { User } from '../users';
+import { User } from '../models/users';
 
 @Component({
   selector: 'app-login',

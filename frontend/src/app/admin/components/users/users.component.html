@@ -1,1 +1,131 @@
-<p>users works!</p>
+<p>Mantenimiento de usuarios</p>
+
+<p-table [value]="users" [lazy]="true" (onLazyLoad)="pageChange($event)" dataKey="id"
+  [tableStyle]="{ 'min-width': '75rem' }" [paginator]="true" editMode="row" [showCurrentPageReport]="true" [rows]="5"
+  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [rowsPerPageOptions]="[5, 10, 20]"
+  [totalRecords]="totalRecords" [loading]="loading">
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th pSortableColumn="id">Id <p-sortIcon field="id"></p-sortIcon></th>
+      <th pSortableColumn="username">Username <p-sortIcon field="username"></p-sortIcon></th>
+      <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
+      <th pSortableColumn="birthdate">Birthdate <p-sortIcon field="birthdate"></p-sortIcon></th>
+      <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+      <th pSortableColumn="isAdmin">Admin <p-sortIcon field="isAdmin"></p-sortIcon></th>
+      <th colspan="2">Actions</th>
+    </tr>
+    <tr>
+      <th><p-columnFilter type="text" field="id" [showMenu]="false"></p-columnFilter></th>
+      <th><p-columnFilter type="text" field="username" [showMenu]="false"></p-columnFilter></th>
+      <th><p-columnFilter type="text" field="name" [showMenu]="false"></p-columnFilter></th>
+      <th><p-columnFilter type="text" field="birthdate" [showMenu]="false"></p-columnFilter></th>
+      <th><p-columnFilter type="text" field="email" [showMenu]="false"></p-columnFilter></th>
+      <th>
+        <p-columnFilter field="isAdmin" matchMode="in" [showMenu]="false">
+          <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+            <p-triStateCheckbox [ngModel]="value" inputId="tricheckbox"
+              (onChange)="filter($event.value)"></p-triStateCheckbox>
+          </ng-template>
+          <!-- <p-multiSelect [ngModel]="value" appendTo="body" [options]="representatives" placeholder="Any" (onChange)="filter($event.value)" optionLabel="name" [maxSelectedLabels]="1" [selectedItemsLabel]="'{0} items'">
+                  <ng-template let-option pTemplate="item">
+                      <div class="inline-block vertical-align-middle">
+                          <img [alt]="option.label" src="https://primefaces.org/cdn/primeng/images/demo/avatar/{{ option.image }}" width="24" class="vertical-align-middle" />
+                          <span class="ml-1 mt-1">{{ option.name }}</span>
+                      </div>
+                  </ng-template>
+              </p-multiSelect> -->
+        </p-columnFilter>
+      </th>
+      <th></th>
+      <th></th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-user let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="user">
+      <td>
+        {{ user.id }}
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="user.username">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ user.username }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="user.name">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ user.name }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <!-- <input pInputText type="text" [(ngModel)]="user.birthdate"> -->
+            <!-- <p-calendar [(ngModel)]="user.birthdate" dateFormat="yy-mm-dd"></p-calendar> -->
+            <p-calendar [(ngModel)]="user.birthdate" appendTo="body" [readonlyInput]="true" dataType="string"
+              dateFormat="yy-mm-dd" [iconDisplay]="'input'" [showIcon]="true"></p-calendar>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ user.birthdate }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <input pInputText type="text" [(ngModel)]="user.email">
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ user.email }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template pTemplate="input">
+            <p-checkbox [(ngModel)]="user.isAdmin" [binary]="true" [trueValue]="1" [falseValue]="0"></p-checkbox>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{ user.isAdmin }} <!-- TODO Revisar ngclass para mostrar iconos -->
+          </ng-template>
+        </p-cellEditor>
+      </td>
+
+      <td colspan="2">
+        <div>
+          <button *ngIf="!editing&&!deleting" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil"
+            (click)="onRowEditInit(user)" class="p-button-rounded p-button-text">
+          </button>
+          <button *ngIf="!editing&&!deleting" pButton pRipple type="button" icon="pi pi-trash"
+            (click)="onRowDeleteInit(user)" class="p-button-rounded p-button-text p-button-danger mr-2">
+          </button>
+
+          <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check"
+            (click)="onRowEditSave(user)" class="p-button-rounded p-button-text p-button-success mr-2">
+          </button>
+          <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times"
+            (click)="onRowEditCancel()" class="p-button-rounded p-button-text p-button-danger">
+          </button>
+
+          <button *ngIf="deleting" pButton pRipple type="button" icon="pi pi-check" (click)="onRowDeleteSave(user)"
+            class="p-button-rounded p-button-text p-button-danger mr-2">
+          </button>
+          <button *ngIf="deleting" pButton pRipple type="button" icon="pi pi-times" (click)="this.deleting=false"
+            class="p-button-rounded p-button-text p-button-danger mr-2">
+          </button>
+          
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

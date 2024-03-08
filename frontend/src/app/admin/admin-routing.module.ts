@@ -4,6 +4,7 @@ import { AdminContainerComponent } from './components/admin-container/admin-cont
 import { UsersComponent } from './components/users/users.component';
 import { PeliculasComponent } from './components/peliculas/peliculas.component';
 
+
 const routes: Routes = [
   { 
     path: '',

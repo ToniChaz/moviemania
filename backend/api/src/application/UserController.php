@@ -23,6 +23,22 @@ class UserController
     }
   }
 
+  public function getUsersLazy($skip, $rows, $lazyObjDto)
+  {
+    try {
+      $repository = new UserRepository();
+      $response = $repository->getAllUsersLazy($skip, $rows, $lazyObjDto);
+
+      // foreach ($response['data'] as &$user) {
+      //   unset($user['password']);
+      // }
+
+      return json_encode($response);
+    } catch (Exception $error) {
+      throw new Exception($error->getMessage());
+    }
+  }
+
   /** 
    * GET "/users/{userId}" Endpoint - Get user by id 
    */

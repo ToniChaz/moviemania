@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { User } from '../users';
+import { User } from '../models/users';
 
 @Component({
   selector: 'app-user-alerts',
