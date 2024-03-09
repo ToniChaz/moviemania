@@ -35,7 +35,7 @@ export class RegisterComponent {
 
             // Crear el objeto registrationData con todos los campos
             const registrationData = {
-              fullName: this.fullName,
+              name: this.fullName,
               email: this.email,
               password: this.password,
               birthDate: this.birthDate,
