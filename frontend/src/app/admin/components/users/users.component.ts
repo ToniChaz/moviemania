@@ -1,19 +1,18 @@
 import { Component, OnDestroy } from '@angular/core';
 import { User } from '../../../models/users';
 import { UserService } from '../../../services/user.service';
-import { Observable, Subscription, lastValueFrom } from 'rxjs';
+import { Observable, lastValueFrom } from 'rxjs';
 import { TableLazyLoadEvent } from 'primeng/table';
 import { LazyResult } from '../../../models/lazyLoadResult';
-// hmm esto se importa en el main module?
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrl: './users.component.css',
+  styleUrl: './users.component.css'
 })
-export class UsersComponent implements OnDestroy {
+export class UsersComponent {
 
-  private subscriptions: Subscription;
   totalRecords: number = 0;
   users$: Observable<LazyResult<User>>;
   users: User[];
@@ -33,49 +32,48 @@ export class UsersComponent implements OnDestroy {
 
   lazyObj: any = {
   }
-  deleting: any;
+  selectedUser: User | null;
+  // deleting: any;
 
-  constructor(private userService: UserService) {
-    this.subscriptions = Subscription.EMPTY;
+  constructor(private userService: UserService, private confirmationService: ConfirmationService) {
     this.checked = null;
+    this.selectedUser = null;
     this.skipRows = 0;
     this.pageSize = 5;
     this.users$ = this.userService.getUsersLazy(this.skipRows, this.pageSize, this.filters);
     this.users = [];
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.unsubscribe();
-  }
-
   pageChange($event: TableLazyLoadEvent) {
     let filter: any = $event.filters || null;
-    this.filters.id = filter.id?.value || null;
-    this.filters.username = filter.username?.value || null;
-    this.filters.name = filter.name?.value || null;
-    this.filters.birthdate = filter.birthdate?.value || null;
-    this.filters.email = filter.email?.value || null;
-    this.filters.isAdmin = filter.isAdmin?.value == null ? null : +filter.isAdmin?.value;
 
-    this.lazyObj.filters = this.filters;
-    this.lazyObj.order = {
-      sortField: $event.sortField || null,
-      sortOrder: $event.sortOrder == 1 ? "ASC" : "DESC"
-    };
-    this.lazyObj.pagination = {
-      pageSize: $event.rows || this.pageSize,
-      skipRows: $event.first || this.skipRows
+    this.lazyObj = {
+      filters: {
+        id: filter.id?.value || null,
+        username: filter.username?.value || null,
+        name: filter.name?.value || null,
+        birthdate: filter.birthdate?.value || null,
+        email: filter.email?.value || null,
+        isAdmin: filter.isAdmin?.value == null ? null : +filter.isAdmin?.value
+      },
+      order: {
+        sortField: $event.sortField || null,
+        sortOrder: $event.sortOrder == 1 ? "ASC" : "DESC"
+      },
+      pagination: {
+        pageSize: $event.rows || this.pageSize,
+        skipRows: $event.first || this.skipRows
+      }
     }
 
     this.users$ = this.userService.getUsersLazy($event.first || this.skipRows, $event.rows || this.pageSize, this.lazyObj);
 
     this.getUsers();
-
   }
 
   onRowEditInit(user: User) {
     console.log("Iniciando la modificación del user " + user.username);
-    this.userBackUp = user;
+    this.userBackUp = { ...user };
   }
 
   onRowEditSave(user: User) {
@@ -90,18 +88,46 @@ export class UsersComponent implements OnDestroy {
       });
   }
 
-  onRowEditCancel() {
-    delete this.userBackUp;
-    this.getUsers();
+  onRowEditCancel(user: User) {
+    let index = this.users.findIndex(x => x.id == user.id)
+    this.users[index] = this.userBackUp;
+    this.userBackUp = null;
   }
 
-  onRowDeleteInit(user: User) {
-    this.deleting = true;
-    console.log("Iniciando el borrado del user " + user.username);
-  }
-
-  onRowDeleteSave(user: User) {
+  onRowDelete($event: Event, user: User) {
+    this.selectedUser = { ...user };
     let delete$ = this.userService.deleteUser(user.id);
+
+    this.confirmationService.confirm({
+      target: $event.target as EventTarget,
+      message: user.username,
+      acceptLabel: "",
+      rejectLabel: "",
+      acceptIcon: "none",
+      rejectIcon: "none",
+
+      accept: () => {
+        // this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted' });
+
+        lastValueFrom(delete$)
+        .then(() => {
+          console.log("Se borró correctamente");
+          // this.deleting = false;
+          this.getUsers();
+          this.selectedUser = null;
+        })
+        .catch(() => {
+          console.error("Ocurrió un error al borrar");
+          this.selectedUser = null;
+        });
+      },
+      reject: () => {
+        this.selectedUser = null;
+        // this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+      },
+    });
+
+    
 
     // this.subscriptions.add(delete$.subscribe({
     //   next: data => {
@@ -111,15 +137,7 @@ export class UsersComponent implements OnDestroy {
     //   }
     // }));
 
-    lastValueFrom(delete$)
-      .then(() => {
-        console.log("Se borró correctamente");
-        this.deleting = false;
-        this.getUsers();
-      })
-      .catch(() => {
-        console.error("Ocurrió un error al borrar");
-      });
+
   }
 
   private async getUsers() {
@@ -127,5 +145,4 @@ export class UsersComponent implements OnDestroy {
     this.users = result.data;
     this.totalRecords = result.totalRecords;
   }
-
 }

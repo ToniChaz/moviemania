@@ -1,117 +1,95 @@
 <?php
 
-require_once 'src/infrastructure/UserRepository.php';
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
 
-class UserController
-{
-  /** 
-   * GET "/users" Endpoint - Get list of all users 
-   */
-  public function getUsers()
-  {
-    try {
-      $repository = new UserRepository();
-      $response = $repository->getAllUsers();
+require_once 'src/Services/UserService.php';
 
-      foreach ($response as &$user) {
-        unset($user['password']);
-      }
+$app->get('/users', function (Request $request, Response $response, array $args) {
+  $user_service = $this->get('userService');
 
-      return json_encode($response);
-    } catch (Exception $error) {
-      throw new Exception($error->getMessage());
-    }
+  try {
+    $response->getBody()->write($user_service->getUsers());
+  } catch (Exception $error) {
+    $response = errorHandler($error);
   }
 
-  public function getUsersLazy($skip, $rows, $lazyObjDto)
-  {
-    try {
-      $repository = new UserRepository();
-      $response = $repository->getAllUsersLazy($skip, $rows, $lazyObjDto);
+  return $response->withHeader('Content-Type', 'application/json');
+});
 
-      // foreach ($response['data'] as &$user) {
-      //   unset($user['password']);
-      // }
+$app->post('/users/{skip}/{rows}', function (Request $request, Response $response, array $args) {
+  $user_service = $this->get('userService');
+  $skip = filter_var($args['skip'], FILTER_UNSAFE_RAW);
+  $rows = filter_var($args['rows'], FILTER_UNSAFE_RAW);
 
-      return json_encode($response);
-    } catch (Exception $error) {
-      throw new Exception($error->getMessage());
-    }
+  $lazyObjDto = $request->getParsedBody();
+
+  try {
+    $response->getBody()->write($user_service->getUsersLazy($skip, $rows, $lazyObjDto));
+  } catch (Exception $error) {
+    $response = errorHandler($error);
   }
 
-  /** 
-   * GET "/users/{userId}" Endpoint - Get user by id 
-   */
-  public function getUserById($user_id)
-  {
-    try {
-      $repository = new UserRepository();
-      $response = $repository->getById($user_id);
+  return $response->withHeader('Content-Type', 'application/json');
+});
 
-      if (empty($response)) {
-        throw new Exception("NOT_FOUND");
-      }
+$app->get('/users/{userId}', function (Request $request, Response $response, array $args) {
+  $user_service = $this->get('userService');
+  $user_id = filter_var($args['userId'], FILTER_UNSAFE_RAW);
 
-      unset($response[0]['password']);
-
-      return json_encode($response[0]);
-    } catch (Exception $error) {
-      throw new Exception($error->getMessage());
-    }
+  try {
+    $response->getBody()->write($user_service->getUserById($user_id));
+  } catch (Exception $error) {
+    $response = errorHandler($error);
   }
 
-  /** 
-   * POST "/users" Endpoint - Add new user
-   */
-  public function addUser($user_data)
-  {
-    try {
-      $repository = new UserRepository();
-      $response = $repository->addUser($user_data);
+  return $response->withHeader('Content-Type', 'application/json');
+});
 
-      if (!$response) {
-        throw new Exception("USER_ERROR");
-      }
+$app->post('/users', function (Request $request, Response $response, array $args) {
+  $data = $request->getParsedBody();
+  $user_data = [];
+  $user_data['username'] = filter_var($data['username'], FILTER_UNSAFE_RAW);
+  $user_data['name'] = filter_var($data['name'], FILTER_UNSAFE_RAW);
+  $user_data['password'] = filter_var($data['password'], FILTER_UNSAFE_RAW);
+  $user_data['birthdate'] = filter_var($data['birthdate'], FILTER_UNSAFE_RAW);
+  $user_data['email'] = filter_var($data['email'], FILTER_UNSAFE_RAW);
 
-      $user_data['id'] = $response;
+  $user_service = $this->get('userService');
 
-      return json_encode($user_data);
-    } catch (Exception $error) {
-      throw new Exception($error->getMessage());
-    }
+  try {
+    $response->getBody()->write($user_service->addUser($user_data));
+    $response->withStatus(201);
+  } catch (Exception $error) {
+    $response = errorHandler($error);
+  }
+  return $response->withHeader('Content-Type', 'application/json');
+});
+
+$app->put('/users', function (Request $request, Response $response, array $args) {
+  $data = $request->getParsedBody();
+
+  $user_service = $this->get('userService');
+
+  try {
+    $user_service->updateUser($data);
+    return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
+  } catch (Exception $error) {
+    $response = errorHandler($error);
+    return $response->withHeader('Content-Type', 'application/json');
+  }
+});
+
+$app->delete('/users/{userId}', function (Request $request, Response $response, array $args) {
+  $user_service = $this->get('userService');
+  $user_id = filter_var($args['userId'], FILTER_UNSAFE_RAW);
+
+  try {
+    $user_service->deleteUser($user_id);
+    return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
+  } catch (Exception $error) {
+    $response = errorHandler($error);
+    return $response->withHeader('Content-Type', 'application/json');
   }
 
-    /** 
-   * PUT "/users" Endpoint - Update user by id 
-   */
-  public function updateUser($user_data)
-  {
-    try {
-      $repository = new UserRepository();
-      $response = $repository->updateUser($user_data);
-
-      if (!$response) {
-        throw new Exception("USER_ERROR");
-      }
-    } catch (Exception $error) {
-      throw new Exception($error->getMessage());
-    }
-  }
-
-  /** 
-   * DELETE "/users" Endpoint - Delete user by id 
-   */
-  public function deleteUser($user_id)
-  {
-    try {
-      $repository = new UserRepository();
-      $response = $repository->deleteUser($user_id);
-
-      if (!$response) {
-        throw new Exception("USER_ERROR");
-      }
-    } catch (Exception $error) {
-      throw new Exception($error->getMessage());
-    }
-  }
-}
+});

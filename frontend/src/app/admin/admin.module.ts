@@ -10,9 +10,10 @@ import { PanelMenuModule } from 'primeng/panelmenu';
 import { TableModule } from 'primeng/table';
 import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -28,9 +29,10 @@ import { CheckboxModule } from 'primeng/checkbox';
     TableModule,
     FormsModule,
     TriStateCheckboxModule,
-    ButtonModule,
     CalendarModule,
-    CheckboxModule
-  ]
+    CheckboxModule,
+    ConfirmDialogModule
+  ],
+  providers: [ConfirmationService]
 })
 export class AdminModule { }

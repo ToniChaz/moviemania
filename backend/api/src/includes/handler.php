@@ -3,11 +3,11 @@
 function setContainer($container)
 {
   $container['userService'] = function ($container) {
-    $userService = new UserController();
+    $userService = new UserService();
     return $userService;
   };
   $container['loginService'] = function ($container) {
-    $loginService = new LoginController();
+    $loginService = new LoginService();
     return $loginService;
   };
 }
@@ -25,11 +25,13 @@ function errorHandler($error)
     $response = new \Slim\Http\Response(500);
   }
 
-  $response->write(json_encode(array(
-    "error" => $response->getStatusCode(),
-    "reason" => $response->getReasonPhrase(),
-    "message" => $message
-  )));
+  $response->write(json_encode(
+    array(
+      "error" => $response->getStatusCode(),
+      "reason" => $response->getReasonPhrase(),
+      "message" => $message
+    )
+  ));
 
   return $response;
 }

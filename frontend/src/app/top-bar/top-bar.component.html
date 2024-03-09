@@ -1,11 +1,22 @@
-<a [routerLink]="['/']">
-  <img src="assets/logo.jpg">
-  <h1>My Store</h1>
-</a>
+<div class="row">
+  <div class="col">
+    <div class="d-inline-flex">
+      <a [routerLink]="['/']">
+        <img src="assets/logo.png">
+      </a>
+      <h1 class="m-auto ms-3">MovieMania</h1>
+    </div>
+  </div>
 
-<a class="button fancy-button"
-  [routerLink]="['/login']">
-  <em class="material-icons">login</em>Login
-</a>
+  <!-- <div class="col text-center m-auto">
+    <h1>MovieMania</h1>
+  </div> -->
 
-  
+  <div class="col login text-end m-auto">
+    <a [routerLink]="['/login']">
+      <p-button class="me-3 p-button-rounded">
+        <em class="material-icons">login</em>Login
+      </p-button>
+    </a>
+  </div>
+</div>

@@ -48,10 +48,6 @@ class UserRepository extends Database
         $users = $this->select("SELECT * FROM users ".$where.$order." LIMIT ".$pagination['pageSize']." OFFSET ".$pagination['skipRows']);
         $count = $this->select("SELECT count(*) as TotalRegistros FROM users ".$where);
 
-        // foreach($users as &$user) {
-        //     $user['isAdmin'] = (bool)$user['isAdmin'];
-        // }
-
         $result = [
             "data" => $users,
             "totalRecords" => $count[0]["TotalRegistros"]

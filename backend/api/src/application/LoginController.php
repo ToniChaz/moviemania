@@ -1,27 +1,23 @@
 <?php
 
-require_once 'src/infrastructure/LoginRepository.php';
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
 
-class LoginController
-{
-  /** 
-   * "/login" Endpoint - Check if is login is correct
-   */
-  public function login($login_data)
-  {
-    try {
-      $login = new LoginRepository();
-      $response = $login->login($login_data['username']);
+require_once 'src/Services/LoginService.php';
 
-      if ($response[0]['password'] != $login_data['password']) {
-        throw new Exception('WRONG_PASSWORD');
-      }
+$app->post('/login', function (Request $request, Response $response, array $args) {
+  $data = $request->getParsedBody();
+  $login_data = [];
+  $login_data['username'] = filter_var($data['username'], FILTER_UNSAFE_RAW);
+  $login_data['password'] = filter_var($data['password'], FILTER_UNSAFE_RAW);
 
-      unset($response[0]['password']);
-      return json_encode($response);
-      
-    } catch (Exception $error) {
-      throw new Exception($error->getMessage());
-    }
+  $loginService = $this->get('loginService');
+  
+  try {
+      $response->getBody()->write($loginService->login($login_data));
+  } catch (Exception $error) {
+      $response = errorHandler($error);
   }
-}
+
+  return $response->withHeader('Content-Type', 'application/json');
+});
