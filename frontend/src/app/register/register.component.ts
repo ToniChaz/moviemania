@@ -18,7 +18,9 @@ export class RegisterComponent {
   //country: string = '';
   confirmPassword: string = '';
   mensaje : string = '';
-  
+  dia ='';
+  mes= '';
+  anio= '';  
         
   
 /*El host es eso: http://localhost:8080 y Ahh la URL es http://localhost:8080/users
@@ -30,14 +32,17 @@ export class RegisterComponent {
         if (this.fullName && this.email && this.password && this.birthDate && this.username && this.confirmPassword /*&& this.country*/) {
           if (this.password === this.confirmPassword) {
             this.mensaje = '';
+
+            // Crear el objeto registrationData con todos los campos
             const registrationData = {
               fullName: this.fullName,
               email: this.email,
               password: this.password,
               birthDate: this.birthDate,
-              username: this.username,
-              //country: this.country
+              username: this.username
+              // ...otros campos si los tienes
             };
+            console.log(this.birthDate);
     
             this.http.post<any>('http://localhost:8080/api/users', registrationData).subscribe(
               response => {
