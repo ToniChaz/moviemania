@@ -12,6 +12,8 @@ import { Observable } from 'rxjs';
 export class UserListComponent implements OnInit {
   users!: Observable<User[]>;
   userSelected: User | undefined = undefined;
+  pelis: any;
+  urlBase: any;
 
   constructor(private userService: UserService) { }
 
@@ -25,7 +27,7 @@ export class UserListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.users =  this.userService.getUsers();
+    this.users = this.userService.getUsers();
   }
 
   edit(user: User) {
@@ -33,6 +35,6 @@ export class UserListComponent implements OnInit {
   }
 
   delete(user: User) {
-    
+
   }
 }

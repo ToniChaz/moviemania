@@ -14,6 +14,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -31,8 +32,12 @@ import { ConfirmationService } from 'primeng/api';
     TriStateCheckboxModule,
     CalendarModule,
     CheckboxModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    CardModule
   ],
-  providers: [ConfirmationService]
+  providers: [ConfirmationService],
+  exports: [
+    CardModule
+  ]
 })
 export class AdminModule { }

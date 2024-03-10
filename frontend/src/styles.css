@@ -43,3 +43,7 @@ app-top-bar img {
   margin-bottom: unset;
   padding-left: unset;
 }
+
+.row {
+  margin: 0;
+}

@@ -19,11 +19,11 @@ class UserService
     }
   }
 
-  public function getUsersLazy($skip, $rows, $lazyObjDto)
+  public function getUsersLazy($lazyObjDto)
   {
     try {
       $repository = new UserRepository();
-      $response = $repository->getAllUsersLazy($skip, $rows, $lazyObjDto);
+      $response = $repository->getAllUsersLazy($lazyObjDto);
 
       // foreach ($response['data'] as &$user) {
       //   unset($user['password']);

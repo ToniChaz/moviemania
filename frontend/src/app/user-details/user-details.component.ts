@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../models/users';
 import { UserService } from '../services/user.service';
-import { Subscription, map } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-users-details',

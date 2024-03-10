@@ -14,7 +14,7 @@ import { ConfirmationService } from 'primeng/api';
 export class UsersComponent {
 
   totalRecords: number = 0;
-  users$: Observable<LazyResult<User>>;
+  users$: Observable<LazyResult<User>> | undefined;
   users: User[];
   skipRows: number;
   pageSize: number;
@@ -30,8 +30,7 @@ export class UsersComponent {
     isAdmin: null
   };
 
-  lazyObj: any = {
-  }
+  lazyObj: any;
   selectedUser: User | null;
   // deleting: any;
 
@@ -40,8 +39,26 @@ export class UsersComponent {
     this.selectedUser = null;
     this.skipRows = 0;
     this.pageSize = 5;
-    this.users$ = this.userService.getUsersLazy(this.skipRows, this.pageSize, this.filters);
     this.users = [];
+
+    this.lazyObj = {
+      filters: {
+        id: null,
+        username: null,
+        name: null,
+        birthdate: null,
+        email:  null,
+        isAdmin: null
+      },
+      order: {
+        sortField: null,
+        sortOrder: null
+      },
+      pagination: {
+        pageSize: this.pageSize,
+        skipRows: this.skipRows
+      }
+    };
   }
 
   pageChange($event: TableLazyLoadEvent) {
@@ -66,7 +83,7 @@ export class UsersComponent {
       }
     }
 
-    this.users$ = this.userService.getUsersLazy($event.first || this.skipRows, $event.rows || this.pageSize, this.lazyObj);
+    this.users$ = this.userService.getUsersLazy(this.lazyObj);
 
     this.getUsers();
   }
@@ -141,7 +158,7 @@ export class UsersComponent {
   }
 
   private async getUsers() {
-    let result = await lastValueFrom(this.users$);
+    let result = await lastValueFrom(this.users$!);
     this.users = result.data;
     this.totalRecords = result.totalRecords;
   }

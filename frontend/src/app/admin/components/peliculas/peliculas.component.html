@@ -1,1 +1,42 @@
-<p>peliculas works!</p>
+<h2>Mantenimiento de peliculas</h2>
+
+<div style="display: flex; flex-wrap: wrap;">
+    <p-card *ngFor="let peli of pelis">
+        <ng-template pTemplate="header">
+            <a href="{{urlBase + peli.poster_path}}" target="_blank"><img alt="Card"
+                    src="{{urlBase + peli.poster_path}}" /></a>
+        </ng-template>
+        <p>
+            {{peli.overview}}
+        </p>
+    </p-card>
+</div>
+
+
+<!-- adult: false
+​​​
+backdrop_path: "/fm6KqXpk3M2HVveHwCrBSSBaO0V.jpg"
+​​​
+genre_ids: Array [ 18, 36 ]
+​​​
+id: 872585
+​​​
+original_language: "en"
+​​​
+original_title: "Oppenheimer"
+​​​
+overview: "Película sobre el físico J. Robert Oppenheimer y su papel como desarrollador de la bomba atómica. Basada en el libro 'American Prometheus: The Triumph and Tragedy of J. Robert Oppenheimer' de Kai Bird y Martin J. Sherwin."
+​​​
+popularity: 418.699
+​​​
+poster_path: "/ncKCQVXgk4BcQV6XbvesgZ2zLvZ.jpg"
+​​​
+release_date: "2023-07-19"
+​​​
+title: "Oppenheimer"
+​​​
+video: false
+​​​
+vote_average: 8.112
+​​​
+vote_count: 6929 -->

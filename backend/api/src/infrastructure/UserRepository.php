@@ -10,7 +10,7 @@ class UserRepository extends Database
         return $this->select("SELECT name, username, birthdate, email, isAdmin FROM users");
     }
 
-    public function getAllUsersLazy($skip, $rows, $lazyObjDto)
+    public function getAllUsersLazy($lazyObjDto)
     {
         $where = buildWhereClause($lazyObjDto['filters']);
         $order = buildOrderClause($lazyObjDto['order']);
@@ -45,7 +45,7 @@ class UserRepository extends Database
         //     $where .= "email like '%".$filters['email']."%' ";
         // }
 
-        $users = $this->select("SELECT * FROM users ".$where.$order." LIMIT ".$pagination['pageSize']." OFFSET ".$pagination['skipRows']);
+        $users = $this->select("SELECT id, name, username, birthdate, email, isAdmin FROM users ".$where.$order." LIMIT ".$pagination['pageSize']." OFFSET ".$pagination['skipRows']);
         $count = $this->select("SELECT count(*) as TotalRegistros FROM users ".$where);
 
         $result = [

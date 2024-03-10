@@ -17,15 +17,14 @@ $app->get('/users', function (Request $request, Response $response, array $args)
   return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->post('/users/{skip}/{rows}', function (Request $request, Response $response, array $args) {
+$app->get('/usersLazy/{query}', function (Request $request, Response $response, array $args) {
   $user_service = $this->get('userService');
-  $skip = filter_var($args['skip'], FILTER_UNSAFE_RAW);
-  $rows = filter_var($args['rows'], FILTER_UNSAFE_RAW);
+  $query = filter_var($args['query'], FILTER_UNSAFE_RAW);
 
-  $lazyObjDto = $request->getParsedBody();
+  $lazyObjDto = json_decode($query, true);
 
   try {
-    $response->getBody()->write($user_service->getUsersLazy($skip, $rows, $lazyObjDto));
+    $response->getBody()->write($user_service->getUsersLazy($lazyObjDto));
   } catch (Exception $error) {
     $response = errorHandler($error);
   }

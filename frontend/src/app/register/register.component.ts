@@ -1,6 +1,7 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -23,7 +24,7 @@ export class RegisterComponent {
 
 
   // El host es eso: http://localhost:8080 y Ahh la URL es http://localhost:8080/users meter esto en algun lado
-  constructor(private http: HttpClient) { } // Inyecta HttpClient en el constructor
+  constructor(private http: HttpClient, private router: Router) { } // Inyecta HttpClient en el constructor
 
   register() {
     // Aquí puedes implementar la lógica para enviar los datos de registro al backend
@@ -43,6 +44,7 @@ export class RegisterComponent {
         this.http.post<any>('http://localhost:8080/api/users', registrationData).subscribe(
           response => {
             console.log('Respuesta del backend:', response);
+            this.router.navigate([`/users/${response.id}`]);
             // te manda para la web
             // o hacer que te diga el placeholder que ya hay alguien con este nombre o correo o lo que sea
           },

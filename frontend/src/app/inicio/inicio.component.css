@@ -1,0 +1,34 @@
+.p-card {
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    height: 200px;
+}
+
+.p-card-header {
+    width: 20vw;
+    display: flex;
+    align-items: center;
+}
+
+.p-card-header a {
+    /* object-fit: contain; */
+    height: 100%;
+}
+
+.p-card-header img {
+    /* object-fit: contain; */
+    height: 100%;
+}
+
+.p-card-body {
+    background-color: #e1e1e1;
+    overflow-y: auto;
+    width: 50vw;
+}
+
+.p-card-content p {
+    font-size: 13px;
+    text-align: justify;
+
+}

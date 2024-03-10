@@ -1,12 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { PeliculasService } from '../services/peliculas.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-inicio',
-  standalone: true,
-  imports: [],
   templateUrl: './inicio.component.html',
-  styleUrl: './inicio.component.css'
+  styleUrl: './inicio.component.css',
+  encapsulation: ViewEncapsulation.None
 })
-export class InicioComponent {
+export class InicioComponent implements OnInit {
+  public readonly urlBase: string = 'https://image.tmdb.org/t/p/original';
+  pelis: any = [];
 
+  constructor(private peliculasService: PeliculasService) {
+
+  }
+
+  ngOnInit(): void {
+    this.getMovie();
+  }
+
+  async getMovie() {
+    let movie$ = this.peliculasService.getAPiData();
+    this.pelis = await firstValueFrom(movie$);
+  }
 }

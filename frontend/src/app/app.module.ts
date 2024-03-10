@@ -12,7 +12,8 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './admin/admin.module';
 import { ButtonModule } from 'primeng/button';
-
+import { CardModule } from 'primeng/card';
+import { InicioComponent } from './inicio/inicio.component';
 
 @NgModule({
   imports: [
@@ -23,14 +24,19 @@ import { ButtonModule } from 'primeng/button';
     LoginComponent,
     AppRoutingModule,
     AdminModule,
-    ButtonModule
+    ButtonModule,
+    CardModule
   ],
   declarations: [
     AppComponent,
     TopBarComponent,
     UserListComponent,
     UserAlertsComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    InicioComponent
+  ],
+  exports: [
+    CardModule
   ],
   bootstrap: [
     AppComponent

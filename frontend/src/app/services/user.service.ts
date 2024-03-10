@@ -15,8 +15,9 @@ export class UserService {
     return this.http.get<User[]>(`http://localhost:8080/api/users`);
   }
 
-  getUsersLazy(skipRows: number, pageSize: number, filters: any) {
-    return this.http.post<LazyResult<User>>(`http://localhost:8080/api/users/${skipRows}/${pageSize}`, filters);
+  getUsersLazy(filters: any) {
+    let query = encodeURIComponent(JSON.stringify(filters));
+    return this.http.get<LazyResult<User>>(`http://localhost:8080/api/usersLazy/${query}`);
   }
 
   getUserById(userId: number): Observable<User | undefined> {

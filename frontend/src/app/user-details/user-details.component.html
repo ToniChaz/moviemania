@@ -1,9 +1,10 @@
 <div>
-  <h2>User Details</h2>
+  <br>
+  <h2>Detalles de usuario</h2>
+  <br>
+  <p><b>Nombre de usuario: </b>{{ user?.username }}</p>
+  <p><b>Nombre: </b>{{ user?.name }}</p>
+  <p><b>Fecha de nacimiento: </b>{{ user?.birthdate }}</p>
+  <p><b>E-mail: </b>{{ user?.email }}</p>
 
-  <h3>{{ user?.username }}</h3>
-  <h4>{{ user?.email }}</h4>
-  <p>
-    {{ "I am " + (user?.isAdmin ? "" : "NOT ") + "an Admin" }}
-  </p>
 </div>
