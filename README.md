@@ -44,7 +44,7 @@ npm run build
         cd ../backend
         ```
 
-    - Edit the `config.php` file and update the database credentials.
+    - Edit the `includes/db.php` file and update the database credentials.
     
 6. Start your PHP server.
 ```sh
@@ -69,7 +69,7 @@ http://localhost:8000/api/{some-resource}
 
 >  GET /users/{id}
 >  ```sh
->  curl --location --request GET 'http://localhost:8080/api/users/43'
+>  curl --location --request GET 'http://localhost:8080/api/users/1'
 >  ```
 
 >  POST /users

@@ -1,42 +1,38 @@
 <div class="register-container">
-    <h2 class="register-header">Registrarse</h2>
-    <div id="prueba">
-        <form (ngSubmit)="register()" #registerForm="ngForm" class="register-form">
-            <div class="form-group">
-              <label for="fullName">Nombre Completo</label>
-              <input type="text" id="fullName" name="fullName" [(ngModel)]="fullName" class="form-control" placeholder="{{ mensaje }}" required>
-            </div>
-            <div class="form-group">
-                <label for="username">Nombre de Usuario</label>
-                <input type="text" id="username" name="username" [(ngModel)]="username" class="form-control" placeholder="{{ mensaje }}">
-              </div>
-            <div class="form-group">
-              <label for="email">Dirección de Correo Electrónico</label>
-              <input type="email" id="email" name="email" [(ngModel)]="email" class="form-control" placeholder="{{ mensaje }}" required>
-            </div>
-            <div class="form-group">
-              <label for="password">Contraseña</label>
-              <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control" placeholder="{{ mensaje }}" required>
-            </div>
-            <div class="form-group">
-              <label for="confirmPassword">Confirmar Contraseña</label>
-              <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" class="form-control" placeholder="{{ mensaje }}" required>
-            </div>
-            <div class="form-group">
-              <label for="birthDate">Fecha de Nacimiento</label>
-              <input type="date" id="birthDate" name="birthDate" [(ngModel)]="birthDate" class="form-control" placeholder="{{ mensaje }}" required>
-            </div>
-            <!--<div class="form-group">
-              <label for="gender">Género</label>
-              <input type="text" id="gender" name="gender" [(ngModel)]="gender" class="form-control">
-            </div>-->
-            <!--<div class="form-group">
-              <label for="country">País de Residencia</label>
-              <input type="text" id="country" name="country" [(ngModel)]="country" class="form-control">
-            </div>-->
-            <button type="submit" class="btn btn-primary">Registrarse</button>
-            
-          </form>
-    </div>
-  
+  <h2 class="register-header">Registrarse</h2>
+  <div id="prueba">
+    <form (ngSubmit)="register()" #registerForm="ngForm" class="register-form">
+      <div class="form-group">
+        <label for="fullName">Nombre Completo</label>
+        <input type="text" id="fullName" name="fullName" [(ngModel)]="fullName" class="form-control"
+          placeholder="{{ mensaje }}" required>
+      </div>
+      <div class="form-group">
+        <label for="username">Nombre de Usuario</label>
+        <input type="text" id="username" name="username" [(ngModel)]="username" class="form-control"
+          placeholder="{{ mensaje }}">
+      </div>
+      <div class="form-group">
+        <label for="email">Dirección de Correo Electrónico</label>
+        <input type="email" id="email" name="email" [(ngModel)]="email" class="form-control" placeholder="{{ mensaje }}"
+          required>
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input type="password" id="password" name="password" [(ngModel)]="password" class="form-control"
+          placeholder="{{ mensaje }}" required>
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirmar Contraseña</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword"
+          class="form-control" placeholder="{{ mensaje }}" required>
+      </div>
+      <div class="form-group">
+        <label for="birthdate">Fecha de Nacimiento</label>
+        <input type="date" id="birthdate" name="birthdate" [(ngModel)]="birthdate" class="form-control"
+          placeholder="{{ mensaje }}" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Registrarse</button>
+    </form>
   </div>
+</div>

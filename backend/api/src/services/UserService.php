@@ -13,10 +13,6 @@ class UserService
       $repository = new UserRepository();
       $response = $repository->getAllUsers();
 
-      foreach ($response as &$user) {
-        unset($user['password']);
-      }
-
       return json_encode($response);
     } catch (Exception $error) {
       throw new Exception($error->getMessage());
@@ -51,8 +47,6 @@ class UserService
       if (empty($response)) {
         throw new Exception("NOT_FOUND");
       }
-
-      unset($response[0]['password']);
 
       return json_encode($response[0]);
     } catch (Exception $error) {

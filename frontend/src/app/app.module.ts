@@ -24,12 +24,6 @@ import { ButtonModule } from 'primeng/button';
     AppRoutingModule,
     AdminModule,
     ButtonModule
-    // XXX: han pasado las rutas a app-routing.module.ts
-
-    // RouterModule.forRoot([
-    //   { path: '', component: UserListComponent },
-    //   { path: 'users/:userId', component: UserDetailsComponent },
-    // ])
   ],
   declarations: [
     AppComponent,

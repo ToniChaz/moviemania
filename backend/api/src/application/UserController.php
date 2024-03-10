@@ -3,7 +3,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-require_once 'src/Services/UserService.php';
+require_once 'src/services/UserService.php';
 
 $app->get('/users', function (Request $request, Response $response, array $args) {
   $user_service = $this->get('userService');
@@ -52,8 +52,7 @@ $app->post('/users', function (Request $request, Response $response, array $args
   $user_data['username'] = filter_var($data['username'], FILTER_UNSAFE_RAW);
   $user_data['name'] = filter_var($data['name'], FILTER_UNSAFE_RAW);
   $user_data['password'] = filter_var($data['password'], FILTER_UNSAFE_RAW);
-  #$user_data['birthdate'] = filter_var($data['birthdate'], FILTER_UNSAFE_RAW);
-  $user_data['birthdate'] = '1998-02-14';
+  $user_data['birthdate'] = filter_var($data['birthdate'], FILTER_UNSAFE_RAW);
   $user_data['email'] = filter_var($data['email'], FILTER_UNSAFE_RAW);
 
   $user_service = $this->get('userService');

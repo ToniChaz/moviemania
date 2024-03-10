@@ -7,7 +7,7 @@ class UserRepository extends Database
 {
     public function getAllUsers()
     {
-        return $this->select("SELECT * FROM users");
+        return $this->select("SELECT name, username, birthdate, email, isAdmin FROM users");
     }
 
     public function getAllUsersLazy($skip, $rows, $lazyObjDto)
@@ -58,7 +58,7 @@ class UserRepository extends Database
 
     public function getById($user_id)
     {
-        return $this->select("SELECT * FROM users WHERE id='$user_id'");
+        return $this->select("SELECT name, username, birthdate, email, isAdmin FROM users WHERE id='$user_id'");
     }
 
     public function addUser($user_data)
