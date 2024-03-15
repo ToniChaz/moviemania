@@ -12,6 +12,11 @@ import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './admin/admin.module';
 import { ButtonModule } from 'primeng/button';
+import { ErrorHandler } from '@angular/core';
+import { MessageService } from 'primeng/api';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { AppErrorHandler } from './services/app-error-handler';
 import { CardModule } from 'primeng/card';
 import { InicioComponent } from './inicio/inicio.component';
 
@@ -25,6 +30,8 @@ import { InicioComponent } from './inicio/inicio.component';
     AppRoutingModule,
     AdminModule,
     ButtonModule,
+    MessagesModule,
+    MessageModule,
     CardModule
   ],
   declarations: [
@@ -37,6 +44,10 @@ import { InicioComponent } from './inicio/inicio.component';
   ],
   exports: [
     CardModule
+  ],
+  providers: [
+    MessageService,
+    { provide: ErrorHandler, useClass: AppErrorHandler }
   ],
   bootstrap: [
     AppComponent
