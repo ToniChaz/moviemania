@@ -9,3 +9,5 @@ export class AppErrorHandler implements ErrorHandler {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.message });
     }
 }
+
+// Path: frontend/src/app/services/app-error-handler.ts

@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { PeliculasService } from '../services/peliculas.service';
-import { firstValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-inicio',
@@ -12,18 +13,21 @@ export class InicioComponent implements OnInit {
   public readonly urlBase: string = 'https://image.tmdb.org/t/p/original';
   pelis: any = [];
 
-  constructor(private peliculasService: PeliculasService) { }
+  constructor(private peliculasService: PeliculasService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.getMovie();
   }
 
   async getMovie() {
-    let movie$ = this.peliculasService.getAPiData();
-    this.pelis = await firstValueFrom(movie$);
+    try {
+      let movie$ = this.peliculasService.getAPiData();
+      this.pelis = await lastValueFrom(movie$);
+    } catch (error) {
+    }
+  }
+  throwError() {
+    throw new Error('This is a test error'); // prueba para forzar un error
   }
 
-  generateError() {
-    throw new Error('This is a test error');
-  }
 }
