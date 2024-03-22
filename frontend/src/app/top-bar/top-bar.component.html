@@ -1,22 +1,13 @@
-<div class="row gx-0">
-  <div class="col">
-    <div class="d-inline-flex">
-      <a [routerLink]="['/']">
+<p-menubar [model]="items">
+  <ng-template pTemplate="start">
+    <div class="logo">
+      <a routerLink="/">
         <img src="assets/logo.png">
+        <h1>MovieMania</h1>
       </a>
-      <h1 class="m-auto ms-3">MovieMania</h1>
     </div>
-  </div>
-
-  <!-- <div class="col text-center m-auto">
-    <h1>MovieMania</h1>
-  </div> -->
-
-  <div class="col login text-end m-auto">
-    <a [routerLink]="['/login']">
-      <p-button class="me-3 p-button-rounded">
-        <em class="material-icons">login</em>Login
-      </p-button>
-    </a>
-  </div>
-</div>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <button pButton pRipple icon="pi pi-search" class="p-button-rounded p-button-success p-mr-2" (click)="search($event)"></button>
+  </ng-template>
+</p-menubar>

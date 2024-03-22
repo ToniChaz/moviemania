@@ -1,1 +1,54 @@
+:host ::ng-deep .p-menubar {
+    background-color: black;
+    display: flex;
+    align-items: center;
+}
 
+:host ::ng-deep .p-menubar .p-menuitem-link {
+    text-decoration: none;
+}
+
+:host ::ng-deep .p-menubar .p-menuitem {
+    border: none;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+.logo h1 {
+    font-size: 2em; 
+    margin-left: 1em;
+}
+
+.logo img {
+    width: 50px; 
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+}
+
+.logo a:hover {
+    color: #ccc;
+}
+
+:host ::ng-deep .p-menubar .p-menubar-root-list {
+    display: flex;
+    align-items: center;
+}
+
+:host ::ng-deep .p-button-success {
+    background-color: #333;
+    border-color: #333;
+}
+
+:host ::ng-deep .p-button-success:hover {
+    background-color: #555;
+    border-color: #555;
+}

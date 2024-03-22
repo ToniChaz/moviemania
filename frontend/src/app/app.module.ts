@@ -18,6 +18,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { AppErrorHandler } from './services/app-error-handler';
 import { CardModule } from 'primeng/card';
+import { MenubarModule } from 'primeng/menubar';
 import { InicioComponent } from './inicio/inicio.component';
 
 @NgModule({
@@ -29,6 +30,7 @@ import { InicioComponent } from './inicio/inicio.component';
     LoginComponent,
     AppRoutingModule,
     AdminModule,
+    MenubarModule,
     ButtonModule,
     MessagesModule,
     MessageModule,
