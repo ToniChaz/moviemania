@@ -72,15 +72,20 @@ http://localhost:8000/api/{some-resource}
 >  curl --location --request GET 'http://localhost:8080/api/users/1'
 >  ```
 
+>  GET /users?limit=10&offset=1
+>  ```sh
+>  curl --location 'http://localhost:8080/api/users?limit=10&offset=1'
+>  ```
+
 >  POST /users
 >  ```sh
 >  curl --location --request POST 'http://localhost:8080/api/users' \
 >       --header 'Content-Type: application/x-www-form-urlencoded' \
->       --data-urlencode 'username="username17"' \
->       --data-urlencode 'name="User Name 1001"' \
->       --data-urlencode 'password="123456"' \
->       --data-urlencode 'birthdate="1980-10-10"' \
->       --data-urlencode 'email="username1001@gmail.com"'
+>       --data-urlencode 'username=username17' \
+>       --data-urlencode 'name=User Name 1001' \
+>       --data-urlencode 'password=123456' \
+>       --data-urlencode 'birthdate=1980-10-10' \
+>       --data-urlencode 'email=username1001@gmail.com'
 >  ```
 
 >  PUT /users
@@ -103,8 +108,8 @@ http://localhost:8000/api/{some-resource}
 >  ```sh
 >  curl --location --request POST 'http://localhost:8080/api/login' \
 >       --header 'Content-Type: application/x-www-form-urlencoded' \
->       --data-urlencode 'username="user8"' \
->       --data-urlencode 'password="password8"'
+>       --data-urlencode 'username=user8' \
+>       --data-urlencode 'password=password8'
 >  ```
 
 ## Docker compose

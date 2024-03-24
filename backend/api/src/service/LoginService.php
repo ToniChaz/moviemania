@@ -1,6 +1,6 @@
 <?php
 
-require_once 'src/infrastructure/LoginRepository.php';
+require_once 'src/repository/LoginRepository.php';
 
 class LoginService
 {

@@ -16,8 +16,8 @@ $app->add(function ($req, $res, $next) {
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
 });
 
-require_once './src/application/UserController.php';
-require_once './src/application/LoginController.php';
+require_once './src/controller/UserController.php';
+require_once './src/controller/LoginController.php';
 
 $app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function($req, $res) {
     $handler = $this->notFoundHandler;

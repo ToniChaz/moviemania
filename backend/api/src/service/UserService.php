@@ -1,6 +1,6 @@
 <?php
 
-require_once 'src/infrastructure/UserRepository.php';
+require_once 'src/repository/UserRepository.php';
 
 class UserService
 {
@@ -19,15 +19,11 @@ class UserService
     }
   }
 
-  public function getUsersLazy($lazyObjDto)
+  public function getUsersLazy($limit, $offset, $filters, $order)
   {
     try {
       $repository = new UserRepository();
-      $response = $repository->getAllUsersLazy($lazyObjDto);
-
-      // foreach ($response['data'] as &$user) {
-      //   unset($user['password']);
-      // }
+      $response = $repository->getAllUsersLazy($limit, $offset, $filters, $order);
 
       return json_encode($response);
     } catch (Exception $error) {
