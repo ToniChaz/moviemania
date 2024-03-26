@@ -1,6 +1,7 @@
 <?php
 
 require 'vendor/autoload.php';
+require 'src/includes/authentication.php';
 require 'src/includes/handler.php';
 require 'src/includes/config.php';
 

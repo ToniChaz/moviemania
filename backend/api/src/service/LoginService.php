@@ -20,7 +20,9 @@ class LoginService
         throw new Exception('WRONG_PASSWORD');
       }
 
-      $jwt = generateToken($response[0]);
+      $auth = new Authentication();
+      $jwt = $auth->generateToken($response[0]);
+      
       $token = new TokenRepository();
       $userId = $response[0]['id'];
 

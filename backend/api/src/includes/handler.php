@@ -2,6 +2,11 @@
 
 function setContainer($container)
 {
+  $container['authService'] = function ($container) {
+    $authService = new Authentication();
+    return $authService;
+  };
+
   $container['userService'] = function ($container) {
     $userService = new UserService();
     return $userService;
