@@ -1,9 +1,11 @@
 <?php
 
+require_once 'src/includes/authentication.php';
 require_once 'src/repository/LoginRepository.php';
 
 class LoginService
 {
+
   /** 
    * "/login" Endpoint - Check if is login is correct
    */
@@ -17,9 +19,9 @@ class LoginService
         throw new Exception('WRONG_PASSWORD');
       }
 
-      unset($response[0]['password']);
-      return json_encode($response);
-      
+      $jwt = generateToken($response[0]);
+
+      return json_encode($jwt);
     } catch (Exception $error) {
       throw new Exception($error->getMessage());
     }
