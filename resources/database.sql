@@ -3,7 +3,7 @@ CREATE DATABASE IF NOT EXISTS moviemania;
 use moviemania;
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(60) NOT NULL DEFAULT '',
   `name` varchar(60) NOT NULL DEFAULT '',
   `password` varchar(60) NOT NULL DEFAULT '',
@@ -12,6 +12,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `isAdmin` boolean NOT NULL DEFAULT false,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_unique` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `tokens` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL DEFAULT 0,
+  `refresh_token` varchar(60) NOT NULL DEFAULT '',
+  `refresh_token_expires` int NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `users` (`username`, `name`, `password`, `birthdate`, `email`, `isAdmin`) VALUES

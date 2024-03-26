@@ -11,7 +11,6 @@ function generateToken($user)
     $expires = time() + 60;
     $token = [
       'iss' => 'moviemania.com',
-      'jti' => 'jwtId',
       'iat' => time(),
       "exp" => $expires,
       'sub' => $user['id'],

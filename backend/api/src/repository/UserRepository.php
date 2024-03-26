@@ -55,32 +55,32 @@ class UserRepository extends Database
         return $result;
     }
 
-    public function getById($user_id)
+    public function getById($userId)
     {
-        return $this->select("SELECT name, username, birthdate, email, isAdmin FROM users WHERE id='$user_id'");
+        return $this->select("SELECT name, username, birthdate, email, isAdmin FROM users WHERE id='$userId'");
     }
 
-    public function addUser($user_data)
+    public function addUser($userData)
     {
-        $username = $user_data['username'];
-        $name = $user_data['name'];
-        $password = $user_data['password'];
-        $birthdate = $user_data['birthdate'];
-        $email = $user_data['email'];
+        $username = $userData['username'];
+        $name = $userData['name'];
+        $password = $userData['password'];
+        $birthdate = $userData['birthdate'];
+        $email = $userData['email'];
         $isAdmin = 0;
 
         return $this->insert("INSERT INTO users (username, name, password, birthdate, email, isAdmin) VALUES ('$username', '$name', '$password', '$birthdate', '$email', $isAdmin)");
     }
 
-    public function updateUser($user_data)
+    public function updateUser($userData)
     {
-        $id = $user_data['id'];
-        $username = $user_data['username'];
-        $name = $user_data['name'];
-        $password = $user_data['password'];
-        $birthdate = $user_data['birthdate'];
-        $email = $user_data['email'];
-        $isAdmin = $user_data['isAdmin'];
+        $id = $userData['id'];
+        $username = $userData['username'];
+        $name = $userData['name'];
+        $password = $userData['password'];
+        $birthdate = $userData['birthdate'];
+        $email = $userData['email'];
+        $isAdmin = $userData['isAdmin'];
 
         $query = "UPDATE users 
             SET username='$username',
@@ -94,8 +94,8 @@ class UserRepository extends Database
         return $this->executeQuery($query);
     }
 
-    public function deleteUser($user_id)
+    public function deleteUser($userId)
     {
-        return $this->executeQuery("DELETE FROM users WHERE id='$user_id'");
+        return $this->executeQuery("DELETE FROM users WHERE id='$userId'");
     }
 }
