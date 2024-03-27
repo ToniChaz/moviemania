@@ -20,8 +20,8 @@ function buildOrderClause($order)
 {
     $orderClause = "";
 
-    if (!is_null($order['sortField'])) {
-        $orderClause = " ORDER BY ".$order['sortField']." ".$order['sortOrder'];
+    if (!is_null($order->sortField)) {
+        $orderClause = " ORDER BY ".$order->sortField." ".$order->sortOrder;
     }
 
     return $orderClause;

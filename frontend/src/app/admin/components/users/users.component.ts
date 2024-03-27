@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { User } from '../../../models/users';
+import { OrderBy } from "../../../models/OrderBy";
 import { UserService } from '../../../services/user.service';
 import { Observable, lastValueFrom } from 'rxjs';
 import { TableLazyLoadEvent } from 'primeng/table';
@@ -16,8 +17,8 @@ export class UsersComponent {
   totalRecords: number = 0;
   users$: Observable<LazyResult<User>> | undefined;
   users: User[];
-  skipRows: number;
-  pageSize: number;
+  limit: number;
+  offset: number;
   loading: boolean | undefined;
   checked: boolean | null;
   userBackUp: any;
@@ -30,60 +31,54 @@ export class UsersComponent {
     isAdmin: null
   };
 
-  lazyObj: any;
+  order: OrderBy;
   selectedUser: User | null;
-  // deleting: any;
+
 
   constructor(private userService: UserService, private confirmationService: ConfirmationService) {
     this.checked = null;
     this.selectedUser = null;
-    this.skipRows = 0;
-    this.pageSize = 5;
+    this.limit = 5;
+    this.offset = 0;
     this.users = [];
 
-    this.lazyObj = {
-      filters: {
-        id: null,
-        username: null,
-        name: null,
-        birthdate: null,
-        email:  null,
-        isAdmin: null
-      },
-      order: {
-        sortField: null,
-        sortOrder: null
-      },
-      pagination: {
-        pageSize: this.pageSize,
-        skipRows: this.skipRows
-      }
+    this.filters = {
+      id: null,
+      username: null,
+      name: null,
+      birthdate: null,
+      email: null,
+      isAdmin: null
     };
+
+    this.order = {
+      sortField: null,
+      sortOrder: null
+    };
+
   }
 
   pageChange($event: TableLazyLoadEvent) {
     let filter: any = $event.filters || null;
 
-    this.lazyObj = {
-      filters: {
-        id: filter.id?.value || null,
-        username: filter.username?.value || null,
-        name: filter.name?.value || null,
-        birthdate: filter.birthdate?.value || null,
-        email: filter.email?.value || null,
-        isAdmin: filter.isAdmin?.value == null ? null : +filter.isAdmin?.value
-      },
-      order: {
-        sortField: $event.sortField || null,
-        sortOrder: $event.sortOrder == 1 ? "ASC" : "DESC"
-      },
-      pagination: {
-        pageSize: $event.rows || this.pageSize,
-        skipRows: $event.first || this.skipRows
-      }
+    this.filters = {
+      id: filter.id?.value || null,
+      username: filter.username?.value || null,
+      name: filter.name?.value || null,
+      birthdate: filter.birthdate?.value || null,
+      email: filter.email?.value || null,
+      isAdmin: filter.isAdmin?.value == null ? null : +filter.isAdmin?.value
     }
 
-    this.users$ = this.userService.getUsersLazy(this.lazyObj);
+    this.order = {
+      sortField: $event.sortField || null,
+      sortOrder: $event.sortOrder == 1 ? "ASC" : "DESC"
+    }
+
+    this.limit = $event.rows || this.limit;
+    this.offset = $event.first || this.offset;
+
+    this.users$ = this.userService.getUsersLazy(this.limit, this.offset, this.filters, this.order);
 
     this.getUsers();
   }

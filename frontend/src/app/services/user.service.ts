@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { User } from '../models/users';
 import { Injectable } from '@angular/core';
 import { Observable, filter, map } from 'rxjs';
@@ -15,9 +15,25 @@ export class UserService {
     return this.http.get<User[]>(`http://localhost:8080/api/users`);
   }
 
-  getUsersLazy(filters: any) {
-    let query = encodeURIComponent(JSON.stringify(filters));
-    return this.http.get<LazyResult<User>>(`http://localhost:8080/api/usersLazy/${query}`);
+/*   getUsersLazy(limit: number, offset: any, filters: any, order:any) {
+    let data = {
+      filters: filters,
+      order: order,
+      limit: limit,
+      offset: offset
+    };
+    let query = encodeURIComponent(JSON.stringify(data));
+    return this.http.get<LazyResult<User>>(`http://localhost:8080/api/users/${query}`);
+  } */
+  getUsersLazy(limit: number, offset: number, filters: any, order: any) {
+
+    let params = new HttpParams()
+      .set('limit', limit)
+      .set('offset', offset)
+      .set('filters', JSON.stringify(filters))
+      .set('order', JSON.stringify(order));
+
+    return this.http.get<LazyResult<User>>('http://localhost:8080/api/users', { params });
   }
 
   getUserById(userId: number): Observable<User | undefined> {

@@ -13,9 +13,14 @@ $app->get('/users', function (Request $request, Response $response, array $args)
   if (count($queryParams) > 0) {
     $limit = filter_var($queryParams['limit'], FILTER_UNSAFE_RAW);
     $offset = filter_var($queryParams['offset'], FILTER_UNSAFE_RAW);
+    $filtersStr = filter_var($queryParams['filters'], FILTER_UNSAFE_RAW);
+    $orderStr = filter_var($queryParams['order'], FILTER_UNSAFE_RAW);
+
+    $filters = json_decode($filtersStr);
+    $order = json_decode($orderStr);
 
     try {
-      $response->getBody()->write($userService->getUsersLazy($limit, $offset, null, null));
+      $response->getBody()->write($userService->getUsersLazy($limit, $offset, $filters, $order));
     } catch (Exception $error) {
       $response = errorHandler($error);
     }
